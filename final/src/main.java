@@ -8,7 +8,7 @@ public class main {
 	static BufferedReader brC; static BufferedReader brU;
 	BufferedWriter bwC; BufferedWriter bwU;
 	
-	public static void main(String[] args) throws IOException {
+	public static void init() throws IOException {
 		brC = new BufferedReader(new FileReader("./inC.txt"));
 		brU = new BufferedReader(new FileReader("./inU.txt"));
 		
@@ -26,5 +26,8 @@ public class main {
 				users[i] = new user(tmp[0], tmp[1], tmp[2]);
 			}
 		} catch (IOException e) { e.printStackTrace(); }
+	}
+	public static void main(String[] args) throws IOException {
+		init(); //file input and initialize
 	}
 }
