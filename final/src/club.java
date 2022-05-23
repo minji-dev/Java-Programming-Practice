@@ -9,10 +9,16 @@ public class club {
 	
 	BufferedReader br;	BufferedWriter bw;
 	
-	club() {	
-		this.name = "";
-		this.intro = "";
+	club(String n, String i, int c) throws IOException {	
+		this.reviewCnt = c;
+		this.name = n;
+		this.intro = i;
+		list = new review[c];
 	}
 	
-	
+	public void setReview(String t, String id, int c) {
+		for(int i=0; i<c; i++) {
+			list[i] = new review(t, id);
+		}
+	}
 }

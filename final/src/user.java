@@ -6,9 +6,10 @@ public class user {
 	public String pw;
 	public String club;
 	
-	user() {
-		this.id = "";
-		this.pw = "";
+	user(String i, String p, String c) {
+		this.id = i;
+		this.pw = p;
+		this.club = c;
 	}
 	
 	public void login(String id, String pw) {
