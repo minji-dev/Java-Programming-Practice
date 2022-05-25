@@ -1,3 +1,4 @@
+package Main;
 import java.io.*;
 import java.util.Scanner;
 
@@ -36,6 +37,7 @@ public class main {
 	
 	public static void main(String[] args) throws IOException {
 		init(); //file input and initialize
+		
 	}
 
 }
