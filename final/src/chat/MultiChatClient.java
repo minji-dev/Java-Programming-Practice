@@ -1,6 +1,5 @@
 package chat;
 
-import controller.*;
 import Model.*;
 import java.io.BufferedReader;
 import java.io.IOException;
