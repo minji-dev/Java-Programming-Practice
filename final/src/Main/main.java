@@ -7,11 +7,11 @@ public class main {
 	static user users[];	static int userCnt;
 	
 	static BufferedReader brC; static BufferedReader brU;
-	BufferedWriter bwC; BufferedWriter bwU;
+	static BufferedWriter bwC; static BufferedWriter bwU;
 	
 	public static void init() throws IOException {
-		brC = new BufferedReader(new FileReader("./inC.txt"));
-		brU = new BufferedReader(new FileReader("./inU.txt"));
+		brC = new BufferedReader(new FileReader("./club.txt"));
+		brU = new BufferedReader(new FileReader("./user.txt"));
 		
 		try {
 			clubCnt = Integer.parseInt(brC.readLine());
@@ -45,9 +45,28 @@ public class main {
 			System.out.println(users[i].id + " in " + users[i].club);
 	}
 	
+	public static void save() throws IOException {
+		bwC = new BufferedWriter(new FileWriter("./club.txt"));
+		bwU = new BufferedWriter(new FileWriter("./user.txt"));
+		
+		try {
+			bwC.write(clubCnt+"\n");
+			for(int i=0; i<clubCnt; i++) {
+				bwC.write(clubs[i].name + ", " + clubs[i].intro + ", " + clubs[i].reviewCnt+"\n");
+				for(int j=0; j<clubs[i].reviewCnt; j++)
+					bwC.write(clubs[i].list[j].text + ", " + clubs[i].list[j].id+"\n");
+			}
+			bwU.write(userCnt+"\n");
+			for(int i=0; i<userCnt; i++)
+				bwU.write(users[i].id + ", " + users[i].pw + ", " + users[i].club+"\n");
+			bwC.flush(); bwU.flush(); bwC.close(); bwU.close(); 
+		} catch (IOException e) { e.printStackTrace(); }
+	}
+	
 	public static void main(String[] args) throws IOException {
 		init(); //file input and initialize
-		print();
+		print(); //print console
+		save(); //file output
 	}
 
 }
