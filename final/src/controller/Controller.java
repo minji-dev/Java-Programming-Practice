@@ -65,19 +65,20 @@ public class Controller extends JFrame {
 //		
 //		GridBagLayout gll = new GridBagLayout();
 		
-		GridBagConstraints g_11 = new GridBagConstraints();
+		GridBagConstraints g_11 = new GridBagConstraints(); g_11.fill = GridBagConstraints.BOTH;
 //		
 //		L1.setLayout(gl);
 //		L2.setLayout(gll);
 		
-		GridBagConstraints gl = new GridBagConstraints();
-		JLabel l11 = new JLabel(("Title")); JLabel l12 = new JLabel("login");
+		GridBagConstraints gl = new GridBagConstraints(); gl.fill = GridBagConstraints.BOTH;
+		JLabel l11 = new JLabel(); l11.setText("Title"); 
+		JLabel l12 = new JLabel("login"); l12.setText("login");
 		g_11.gridx = 0; g_11.gridy = 0; g_11.gridwidth = 3;
 		f.add(l11,g_11); 
-		g_11.gridx = 0; g_11.gridy = 0; g_11.gridwidth = 3;
+		g_11.gridx = 4; g_11.gridy = 0; g_11.gridwidth = 3;
 		f.add(l12,g_11);
 		//L1.setSize(1000,300);
-		gl.gridx = 0; gl.gridy = 0; gl.gridwidth = 6;
+		//gl.gridx = 0; gl.gridy = 0; gl.gridwidth = 6;
 		//f.add(L1,g1);
 		
 		ActionListener listen = new ActionListener() {
@@ -89,59 +90,34 @@ public class Controller extends JFrame {
 
 		JButton[] b1 = new JButton[clubs.size()];
 		for(int i=0;i<clubs.size();i++) {
-			GridBagConstraints g1 = new GridBagConstraints();
+			GridBagConstraints g1 = new GridBagConstraints(); g1.fill = GridBagConstraints.BOTH;
 			b1[i] = new JButton(clubs.get(i).name);
 			b1[i].addActionListener(listen);
 			g1.gridx = 1; g1.gridy = i+1;
 			f.add(b1[i],g1);
 		}
-//		L1.setSize(1000, 50);
-//		L1.setVisible(true);
-//		L2.setSize(1000, 300);
-//		L2.setVisible(true);
-		
-//		g1.gridx = 1; g1.gridy = 0; g1.weightx = 6;
-//		f.add(L1,g1);
-//		g1.gridx = 1; g1.gridy = 0; g1.gridwidth = 6;
-//		f.add(L2,g1);
+
 		f.setSize(1000,1000);
 		f.setVisible(true);
 	}
+	
 	public static void showDetail(String name) {
 		int i;
-/*
-		for(i=0;i<clubs.size();i++) {
-			ClubDetail[i] = new JLabel();
-			ClubDetail[i].setLayout(new GridBagLayout());
-			
-			GridBagConstraints gb1 = new GridBagConstraints();
-			gb1.gridx = 0; gb1.gridy = 0; 
-			ClubDetail[i].add(new JLabel(clubs.get(i).name),gb1);
-			
-			GridBagConstraints gb2 = new GridBagConstraints();
-			gb2.gridx = 0; gb2.gridy = 1; gb2.gridwidth = 4; 
-			ClubDetail[i].add(new JLabel(clubs.get(i).intro),gb2);
-			
-			// 후기 버튼
-			
-			for(int j=0;j<clubs.get(i).list.size();j++) {
-				GridBagConstraints gb = new GridBagConstraints();
-				gb.gridx = 0; gb.gridy = j+1;
-				ClubDetail[i].add(new JLabel(clubs.get(i).list.get(j).id),gb);
-				gb.gridx = 1; gb.gridy = j+1; gb.gridwidth = 4;
-				ClubDetail[i].add(new JLabel(clubs.get(i).list.get(j).text),gb);
-				gb.gridx = 5; gb.gridy = j+1;
-				ClubDetail[i].add(new JButton("쪽지"),gb);
-			}
-		}
-*/
+
 		GridBagLayout gb = new GridBagLayout();
 		JFrame f1 = new JFrame(name);
 		f1.setLayout(gb);
 		//설명 
+		
 		for(i=0;i<clubs.size() && clubs.get(i).name != name;i++) { }
-		GridBagConstraints g = new GridBagConstraints();
+		GridBagConstraints g = new GridBagConstraints(); g.fill = GridBagConstraints.BOTH;
 		club c = clubs.get(i);
+		
+		GridBagLayout gbin = new GridBagLayout();
+		JLabel intro = new JLabel(c.intro);
+		g.gridx = 0; g.gridy = 2; g.gridwidth = 6;
+		f1.add(intro,g);
+		
 		for(int j=0;j<c.list.size();j++) {
 			JLabel label = new JLabel(c.list.get(j).id);
 			g.gridx = 0; g.gridy = 3+j;
