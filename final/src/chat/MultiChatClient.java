@@ -101,8 +101,7 @@ class ReadThread extends Thread{
 public class MultiChatClient {
 	
 	public static void main(String[] args) throws IOException {
-		
-		Controller.init();
+		//Controller.init();
 		
 		Socket socket = null;
 		ClientFrame cf;
