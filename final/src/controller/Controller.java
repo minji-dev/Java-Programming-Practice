@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import Model.*;
@@ -13,31 +15,31 @@ import Model.*;
 
 public class Controller {
 
-	public static club clubs[]; public static int clubCnt;
-	public static user users[];	public static int userCnt;
+	public static ArrayList<club> clubs = new ArrayList<club>();
+	public static ArrayList<user> users = new ArrayList<user>();
 
 	public static void init() throws IOException {
 		BufferedReader brC = new BufferedReader(new FileReader("./club.txt"));
 		BufferedReader brU = new BufferedReader(new FileReader("./user.txt"));
 		
 		try {
-			clubCnt = Integer.parseInt(brC.readLine());
-			clubs = new club[clubCnt];
+			int clubCnt = Integer.parseInt(brC.readLine());
 			for(int i=0; i<clubCnt; i++) {
 				String[] tmp = brC.readLine().split(", ");
 				int c = Integer.parseInt(tmp[2]); // 후기 수
-				clubs[i] = new club(tmp[0], tmp[1], c);
+				ArrayList<review> l = new ArrayList<review>();
 				for(int j=0; j<c; j++) {
 					String[] tmp2 = brC.readLine().split(", ");
-					clubs[i].setReview(tmp2[0], tmp2[1], c);
+					review tmpr = new review(tmp2[0], tmp2[1]);
+					l.add(tmpr);
 				}
+				clubs.add(new club(tmp[0], tmp[1], c, l));
 			}
 			
-			userCnt = Integer.parseInt(brU.readLine());
-			users = new user[userCnt];
+			int userCnt = Integer.parseInt(brU.readLine());
 			for(int i=0; i<userCnt; i++) {
 				String[] tmp = brU.readLine().split(", ");
-				users[i] = new user(tmp[0], tmp[1], tmp[2]);
+				users.add(new user(tmp[0], tmp[1], tmp[2]));
 			}
 			brC.close(); brU.close();
 
@@ -61,20 +63,20 @@ public class Controller {
 			JLabel[] l2 = new JLabel[clubCnt];
 			for(int i=0;i<clubCnt;i++) {
 				l1 = new 
-				l2[i].setText(clubs[i].name);
-				l2[i].setText(clubs[i].intro);
+				l2[i].setText(clubs.get(i).name);
+				l2[i].setText(clubs.get(i).intro);
 			}
 		} catch (IOException e) { e.printStackTrace(); }
 	}
 	
 	public static void print() {
-		for(int i=0; i<clubCnt; i++) {
-			System.out.println(clubs[i].name + ": " + clubs[i].intro);
-			for(int j=0; j<clubs[i].reviewCnt; j++)
-				System.out.println(clubs[i].list[j].id + ": " + clubs[i].list[j].text);
+		for(int i=0; i<clubs.size(); i++) {
+			System.out.println(clubs.get(i).name + ": " + clubs.get(i).intro);
+			for(int j=0; j<clubs.get(i).reviewCnt; j++)
+				System.out.println(clubs.get(i).list.get(j).id + ": " + clubs.get(i).list.get(j).text);
 		}
-		for(int i=0; i<userCnt; i++)
-			System.out.println(users[i].id + " in " + users[i].club);
+		for(int i=0; i<users.size(); i++)
+			System.out.println(users.get(i).id + " in " + users.get(i).club);
 	
 		//gui
 		int a = 2;
@@ -96,8 +98,8 @@ public class Controller {
         f1.setVisible(true);
 		//JLabel[] l2 = new JLabel[clubCnt];
 		for(int i=0;i<2;i++) {
-			l1[i].setText(clubs[i].name);
-			l1[i].setText(clubs[i].intro);
+			l1[i].setText(clubs.get(i).name);
+			l1[i].setText(clubs.get(i).intro);
 		}
 	}
 	
@@ -106,19 +108,21 @@ public class Controller {
 		BufferedWriter bwU = new BufferedWriter(new FileWriter("./user.txt"));
 		
 		try {
-			bwC.write(clubCnt+"\n");
-			for(int i=0; i<clubCnt; i++) {
-				bwC.write(clubs[i].name + ", " + clubs[i].intro + ", " + clubs[i].reviewCnt+"\n");
-				for(int j=0; j<clubs[i].reviewCnt; j++)
-					bwC.write(clubs[i].list[j].text + ", " + clubs[i].list[j].id+"\n");
+			bwC.write(clubs.size()+"\n");
+			for(int i=0; i<clubs.size(); i++) {
+				bwC.write(clubs.get(i).name + ", " + clubs.get(i).intro + ", " + clubs.get(i).reviewCnt+"\n");
+				for(int j=0; j<clubs.get(i).reviewCnt; j++)
+					bwC.write(clubs.get(i).list.get(j).text + ", " + clubs.get(i).list.get(j).id+"\n");
 			}
-			bwU.write(userCnt+"\n");
-			for(int i=0; i<userCnt; i++)
-				bwU.write(users[i].id + ", " + users[i].pw + ", " + users[i].club+"\n");
+			bwU.write(users.size()+"\n");
+			for(int i=0; i<users.size(); i++)
+				bwU.write(users.get(i).id + ", " + users.get(i).pw + ", " + users.get(i).club+"\n");
 			bwC.flush(); bwU.flush(); bwC.close(); bwU.close(); 
 		} catch (IOException e) { e.printStackTrace(); }
 	}
-	public static void main(String[] args) {
+	
+	public static void main(String[] args) throws IOException {
+		init();
 		print();
 	}
 }

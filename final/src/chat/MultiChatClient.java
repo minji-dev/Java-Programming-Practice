@@ -22,11 +22,11 @@ class WriteThread {
 		this.cf = cf;
 		this.socket= cf.socket;
 		
-		this.me = Controller.users[0];
+		this.me = Controller.users.get(0);
 		
-		for(int i=0; i<Controller.userCnt; i++) {
-			if(selectId.getId().equals(Controller.users[i].id)) {
-				this.other = Controller.users[i];
+		for(int i=0; i<Controller.users.size(); i++) {
+			if(selectId.getId().equals(Controller.users.get(i).id)) {
+				this.other = Controller.users.get(i);
 			}
 //			else if(본인Id().equals(Controller.users[i].id)) {
 //				this.me = Controller.users[i];
