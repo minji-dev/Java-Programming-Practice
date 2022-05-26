@@ -1,4 +1,4 @@
-package Main;
+package Model;
 import java.io.*;
 
 public class user {
@@ -7,7 +7,7 @@ public class user {
 	public String pw;
 	public String club;
 	
-	user(String i, String p, String c) {
+	public user(String i, String p, String c) {
 		this.id = i;
 		this.pw = p;
 		this.club = c;

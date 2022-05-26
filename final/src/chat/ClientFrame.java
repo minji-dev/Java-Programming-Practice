@@ -13,18 +13,19 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-class Id extends JFrame implements ActionListener{
-	static JTextField tf=new JTextField(8);
+
+class selectId extends JFrame implements ActionListener{
+	static JTextField tf = new JTextField(8);
 	JButton btn = new JButton("입력");	
 	
-	WriteThread wt;	
+	WriteThread wt;
 	ClientFrame cf;
-	public Id(){}
-	public Id(WriteThread wt, ClientFrame cf) {
-		super("ID");		
+	
+	public selectId(){}
+	public selectId(WriteThread wt, ClientFrame cf) {
+		super("ID");
 		this.wt = wt;
 		this.cf = cf;
-		
 		
 		setLayout(new FlowLayout());
 		add(new JLabel("ID"));
@@ -43,6 +44,7 @@ class Id extends JFrame implements ActionListener{
 		cf.setVisible(true);
 		this.dispose();
 	}
+	
 	static public String getId(){
 		return tf.getText();
 	}
@@ -54,7 +56,7 @@ public class ClientFrame extends JFrame implements ActionListener{
 	JTextField txtF = new JTextField(15);
 	JButton btnTransfer = new JButton("Send");
 	JButton btnExit = new JButton("Close");
-	boolean isFirst=true;
+	boolean isFirst = true;
 	JPanel p1 = new JPanel();
 	Socket socket;
 	WriteThread wt;
@@ -63,7 +65,7 @@ public class ClientFrame extends JFrame implements ActionListener{
 		super("Chat");
 		this.socket = socket;
 		wt = new WriteThread(this);
-		new Id(wt, this);
+		new selectId(wt, this);
 		
 		add("Center", txtA);
 		
@@ -80,15 +82,15 @@ public class ClientFrame extends JFrame implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		String id = Id.getId();
-		if(e.getSource()==btnTransfer){ // 전송버튼 누름
+		String myId = wt.me.id;
+		if(e.getSource() == btnTransfer){ // 전송버튼 누름
 			if(txtF.getText().equals("")){ //메세지 없이 전송만 누름
 				return;
 			}			
-			txtA.append("["+id+"] "+ txtF.getText()+"\n");
+			txtA.append("["+ myId +"] "+ txtF.getText()+"\n");
 			wt.sendMsg();
 			txtF.setText("");
-		}else{
+		} else {
 			this.dispose();
 		}
 	}

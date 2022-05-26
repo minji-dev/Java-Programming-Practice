@@ -1,10 +1,16 @@
-package Main;
-import java.io.*;
-import java.util.Scanner;
+package controller;
 
-public class main {
-	static club clubs[];	static int clubCnt;
-	static user users[];	static int userCnt;
+import Model.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Controller {
+
+	public static club clubs[]; public static int clubCnt;
+	public static user users[];	public static int userCnt;
 
 	public static void init() throws IOException {
 		BufferedReader brC = new BufferedReader(new FileReader("./club.txt"));
@@ -61,10 +67,4 @@ public class main {
 		} catch (IOException e) { e.printStackTrace(); }
 	}
 	
-	public static void main(String[] args) throws IOException {
-		init(); //file input and initialize
-		print(); //print console
-		save(); //file output
-	}
-
 }
