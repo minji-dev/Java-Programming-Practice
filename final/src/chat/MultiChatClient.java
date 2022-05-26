@@ -1,7 +1,8 @@
 package chat;
 
-import controller.*;
 import Model.*;
+import controller.Controller;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -75,7 +76,7 @@ class ReadThread extends Thread{
 	public void run() {
 		BufferedReader br = null;
 		try {
-			br=new BufferedReader(
+			br = new BufferedReader(
 					new InputStreamReader(socket.getInputStream()));
 			while(true){
 				String str = br.readLine();

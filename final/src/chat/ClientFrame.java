@@ -57,7 +57,7 @@ public class ClientFrame extends JFrame implements ActionListener{
 	JButton btnTransfer = new JButton("Send");
 	JButton btnExit = new JButton("Close");
 	boolean isFirst = true;
-	JPanel p1 = new JPanel();
+	JPanel p1 = new JPanel	();
 	Socket socket;
 	WriteThread wt;
 		
