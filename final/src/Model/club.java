@@ -1,4 +1,4 @@
-package Main;
+package Model;
 import java.io.*;
 
 public class club {
@@ -10,7 +10,7 @@ public class club {
 	
 	BufferedReader br;	BufferedWriter bw;
 	
-	club(String n, String i, int c) throws IOException {	
+	public club(String n, String i, int c) throws IOException {	
 		this.reviewCnt = c;
 		this.name = n;
 		this.intro = i;
