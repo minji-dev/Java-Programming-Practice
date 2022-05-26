@@ -3,7 +3,6 @@ package chat;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.net.Socket;
 
 import javax.swing.JButton;
@@ -21,7 +20,6 @@ class selectId extends JFrame implements ActionListener{
 	WriteThread wt;
 	ClientFrame cf;
 	
-	public selectId(){}
 	public selectId(WriteThread wt, ClientFrame cf) {
 		super("ID");
 		this.wt = wt;
@@ -57,7 +55,7 @@ public class ClientFrame extends JFrame implements ActionListener{ // 채팅창
 	JButton btnTransfer = new JButton("Send");
 	JButton btnExit = new JButton("Close");
 	boolean isFirst = true;
-	JPanel p1 = new JPanel	();
+	JPanel p1 = new JPanel();
 	Socket socket;
 	WriteThread wt;
 		

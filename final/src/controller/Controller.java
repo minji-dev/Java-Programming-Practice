@@ -48,27 +48,10 @@ public class Controller extends JFrame {
 	}
 	
 	public static void print() {
-//		for(int i=0; i<clubs.size(); i++) {
-//			System.out.println(clubs.get(i).name + ": " + clubs.get(i).intro);
-//			for(int j=0; j<clubs.get(i).reviewCnt; j++)
-//				System.out.println(clubs.get(i).list.get(j).id + ": " + clubs.get(i).list.get(j).text);
-//		}
-//		for(int i=0; i<users.size(); i++)
-//			System.out.println(users.get(i).id + " in " + users.get(i).club);
-	
-		//gui
 		
 		GridBagLayout gb3 = new GridBagLayout();
 		f.setLayout(gb3);
-//		JLabel L1 = new JLabel();
-//		JLabel L2 = new JLabel();
-//		
-//		GridBagLayout gll = new GridBagLayout();
-		
 		GridBagConstraints g_11 = new GridBagConstraints(); g_11.fill = GridBagConstraints.BOTH;
-//		
-//		L1.setLayout(gl);
-//		L2.setLayout(gll);
 		
 		GridBagConstraints gl = new GridBagConstraints(); gl.fill = GridBagConstraints.BOTH;
 		JLabel l11 = new JLabel(); l11.setText("Title"); 
@@ -77,9 +60,6 @@ public class Controller extends JFrame {
 		f.add(l11,g_11); 
 		g_11.gridx = 4; g_11.gridy = 0; g_11.gridwidth = 3;
 		f.add(l12,g_11);
-		//L1.setSize(1000,300);
-		//gl.gridx = 0; gl.gridy = 0; gl.gridwidth = 6;
-		//f.add(L1,g1);
 		
 		ActionListener listen = new ActionListener() {
 			@Override
