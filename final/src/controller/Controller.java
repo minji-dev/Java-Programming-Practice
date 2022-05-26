@@ -1,6 +1,7 @@
 package controller;
 
 import Model.*;
+import chat.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -110,6 +111,19 @@ public class Controller extends JFrame {
 			JButton b = new JButton("쪽지");
 			g.gridx = 5; g.gridy = 3+j; g.gridwidth = 4;
 			f1.add(b,g);
+			ActionListener listen = new ActionListener() {
+				@Override
+			    public void actionPerformed(ActionEvent e) {
+					try {
+						chat.MultiChatServer.main(null);
+						chat.MultiChatClient.main(null);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				//	(e.getActionCommand());
+				}
+			};
+			b.addActionListener(listen);
 		}
 		f1.setSize(1000,300);
 		f1.setVisible(true);
