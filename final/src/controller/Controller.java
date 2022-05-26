@@ -51,12 +51,13 @@ public class Controller extends JFrame {
 	public static void print() {
 		
 		GridBagLayout gb3 = new GridBagLayout();
+		gb3.columnWidths = new int[] {100,100,100,300};
 		f.setLayout(gb3);
 		GridBagConstraints g_11 = new GridBagConstraints(); g_11.fill = GridBagConstraints.BOTH;
 		
 		GridBagConstraints gl = new GridBagConstraints(); gl.fill = GridBagConstraints.BOTH;
 		JLabel l11 = new JLabel(); l11.setText("Title"); 
-		JLabel l12 = new JLabel("login"); l12.setText("login");
+		JLabel l12 = new JLabel(); l12.setText("login");
 		g_11.gridx = 0; g_11.gridy = 0; g_11.gridwidth = 3;
 		f.add(l11,g_11); 
 		g_11.gridx = 4; g_11.gridy = 0; g_11.gridwidth = 3;
@@ -88,28 +89,27 @@ public class Controller extends JFrame {
 		GridBagLayout gb = new GridBagLayout();
 		JFrame f1 = new JFrame(name);
 		f1.setLayout(gb);
-		//설명 
 		
 		for(i=0;i<clubs.size() && clubs.get(i).name != name;i++) { }
-		GridBagConstraints g = new GridBagConstraints(); g.fill = GridBagConstraints.BOTH;
 		club c = clubs.get(i);
 		
 		GridBagLayout gbin = new GridBagLayout();
-		JLabel intro = new JLabel(c.intro);
+		JLabel intro = new JLabel(); intro.setText(name+" 소개\n: "+c.intro);
+		GridBagConstraints g = new GridBagConstraints(); g.fill = GridBagConstraints.BOTH;
 		g.gridx = 0; g.gridy = 2; g.gridwidth = 6;
 		f1.add(intro,g);
-		
+
 		for(int j=0;j<c.list.size();j++) {
-			JLabel label = new JLabel(c.list.get(j).id);
-			g.gridx = 0; g.gridy = 3+j;
+			JLabel label = new JLabel(); label.setText(c.list.get(j).id);
+			g.gridx = 0; g.gridy = 3+j; g.gridwidth = 2;
 			f1.add(label,g);
 			
-			JLabel label1 = new JLabel(c.list.get(j).text);
-			g.gridx = 1; g.gridy = 3+j; g.gridwidth = 4;
+			JLabel label1 = new JLabel(); label1.setText(c.list.get(j).text);
+			g.gridx = 2; g.gridy = 3+j; g.gridwidth = 3;
 			f1.add(label1,g);
 			
 			JButton b = new JButton("쪽지");
-			g.gridx = 5; g.gridy = 3+j; g.gridwidth = 4;
+			g.gridx = 5; g.gridy = 3+j;
 			f1.add(b,g);
 			ActionListener listen = new ActionListener() {
 				@Override
