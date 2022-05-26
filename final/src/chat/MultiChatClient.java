@@ -1,6 +1,8 @@
 package chat;
 
 import Model.*;
+import controller.Controller;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,11 +22,11 @@ class WriteThread {
 		this.cf = cf;
 		this.socket= cf.socket;
 		
-		this.me = Controller.users[0];
+		this.me = Controller.users.get(0);
 		
-		for(int i=0; i<Controller.userCnt; i++) {
-			if(selectId.getId().equals(Controller.users[i].id)) {
-				this.other = Controller.users[i];
+		for(int i=0; i<Controller.users.size(); i++) {
+			if(selectId.getId().equals(Controller.users.get(i).id)) {
+				this.other = Controller.users.get(i);
 			}
 //			else if(본인Id().equals(Controller.users[i].id)) {
 //				this.me = Controller.users[i];
@@ -74,7 +76,7 @@ class ReadThread extends Thread{
 	public void run() {
 		BufferedReader br = null;
 		try {
-			br=new BufferedReader(
+			br = new BufferedReader(
 					new InputStreamReader(socket.getInputStream()));
 			while(true){
 				String str = br.readLine();

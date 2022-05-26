@@ -1,25 +1,19 @@
 package Model;
 import java.io.*;
+import java.util.ArrayList;
 
 public class club {
 	
-	public int reviewCnt;
 	public String name;
 	public String intro;
-	public review[] list;
+	public int reviewCnt;
+	public ArrayList<review> list = new ArrayList<review>();
 	
-	BufferedReader br;	BufferedWriter bw;
-	
-	public club(String n, String i, int c) throws IOException {	
+	public club(String n, String i, int c, ArrayList<review> l) throws IOException {	
 		this.reviewCnt = c;
 		this.name = n;
 		this.intro = i;
-		list = new review[c];
+		this.list = l;
 	}
 	
-	public void setReview(String t, String id, int c) {
-		for(int i=0; i<c; i++) {
-			list[i] = new review(t, id);
-		}
-	}
 }
