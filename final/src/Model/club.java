@@ -6,7 +6,7 @@ public class club {
 	public int reviewCnt;
 	public String name;
 	public String intro;
-	public review list[];
+	public review[] list;
 	
 	BufferedReader br;	BufferedWriter bw;
 	

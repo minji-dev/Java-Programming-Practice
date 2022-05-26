@@ -45,13 +45,13 @@ class selectId extends JFrame implements ActionListener{
 		this.dispose();
 	}
 	
-	static public String getId(){
+	static public String getId(){ //입력한 값
 		return tf.getText();
 	}
 }
 
 
-public class ClientFrame extends JFrame implements ActionListener{
+public class ClientFrame extends JFrame implements ActionListener{ // 채팅창
 	JTextArea txtA = new JTextArea();
 	JTextField txtF = new JTextField(15);
 	JButton btnTransfer = new JButton("Send");
