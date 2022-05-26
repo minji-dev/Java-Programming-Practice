@@ -5,13 +5,10 @@ import java.util.Scanner;
 public class main {
 	static club clubs[];	static int clubCnt;
 	static user users[];	static int userCnt;
-	
-	static BufferedReader brC; static BufferedReader brU;
-	static BufferedWriter bwC; static BufferedWriter bwU;
-	
+
 	public static void init() throws IOException {
-		brC = new BufferedReader(new FileReader("./club.txt"));
-		brU = new BufferedReader(new FileReader("./user.txt"));
+		BufferedReader brC = new BufferedReader(new FileReader("./club.txt"));
+		BufferedReader brU = new BufferedReader(new FileReader("./user.txt"));
 		
 		try {
 			clubCnt = Integer.parseInt(brC.readLine());
@@ -32,6 +29,7 @@ public class main {
 				String[] tmp = brU.readLine().split(", ");
 				users[i] = new user(tmp[0], tmp[1], tmp[2]);
 			}
+			brC.close(); brU.close();
 		} catch (IOException e) { e.printStackTrace(); }
 	}
 	
@@ -46,8 +44,8 @@ public class main {
 	}
 	
 	public static void save() throws IOException {
-		bwC = new BufferedWriter(new FileWriter("./club.txt"));
-		bwU = new BufferedWriter(new FileWriter("./user.txt"));
+		BufferedWriter bwC = new BufferedWriter(new FileWriter("./club.txt"));
+		BufferedWriter bwU = new BufferedWriter(new FileWriter("./user.txt"));
 		
 		try {
 			bwC.write(clubCnt+"\n");
