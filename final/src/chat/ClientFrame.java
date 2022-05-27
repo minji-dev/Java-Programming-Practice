@@ -13,40 +13,40 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 
-class selectId extends JFrame implements ActionListener{
-	static JTextField tf = new JTextField(8);
-	JButton btn = new JButton("입력");	
-	
-	WriteThread wt;
-	ClientFrame cf;
-	
-	public selectId(WriteThread wt, ClientFrame cf) {
-		super("ID");
-		this.wt = wt;
-		this.cf = cf;
-		
-		setLayout(new FlowLayout());
-		add(new JLabel("ID"));
-		add(tf);
-		add(btn);
-		
-		btn.addActionListener(this);
-		
-		setBounds(300, 300, 250, 100);
-		setVisible(true);
-	}
-	
-	public void actionPerformed(ActionEvent e) {		
-		wt.sendMsg();	
-		cf.isFirst = false;
-		cf.setVisible(true);
-		this.dispose();
-	}
-	
-	static public String getId(){ //입력한 값
-		return tf.getText();
-	}
-}
+//class selectId extends JFrame implements ActionListener{
+//	static JTextField tf = new JTextField(8);
+//	JButton btn = new JButton("입력");	
+//	
+//	WriteThread wt;
+//	ClientFrame cf;
+//	
+//	public selectId(WriteThread wt, ClientFrame cf) {
+//		super("ID");
+//		this.wt = wt;
+//		this.cf = cf;
+//		
+//		setLayout(new FlowLayout());
+//		add(new JLabel("ID"));
+//		add(tf);
+//		add(btn);
+//		
+//		btn.addActionListener(this);
+//		
+//		setBounds(300, 300, 250, 100);
+//		setVisible(true);
+//	}
+//	
+//	public void actionPerformed(ActionEvent e) {		
+//		wt.sendMsg();	
+//		cf.isFirst = false;
+//		cf.setVisible(true);
+//		this.dispose();
+//	}
+//	
+//	static public String getId(){ //입력한 값
+//		return tf.getText();
+//	}
+//}
 
 
 public class ClientFrame extends JFrame implements ActionListener{ // 채팅창
@@ -59,11 +59,10 @@ public class ClientFrame extends JFrame implements ActionListener{ // 채팅창
 	Socket socket;
 	WriteThread wt;
 		
-	public ClientFrame(Socket socket) {
+	public ClientFrame(Socket socket, String otherId) {
 		super("Chat");
 		this.socket = socket;
-		wt = new WriteThread(this);
-		new selectId(wt, this);
+		wt = new WriteThread(this, otherId);
 		
 		add("Center", txtA);
 		

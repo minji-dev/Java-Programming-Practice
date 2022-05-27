@@ -24,6 +24,7 @@ public class Controller extends JFrame {
 	public static void init() throws IOException {
 		BufferedReader brC = new BufferedReader(new FileReader("./club.txt"));
 		BufferedReader brU = new BufferedReader(new FileReader("./user.txt"));
+		add.nowUser = new user("", "");
 		
 		try {
 			int clubCnt = Integer.parseInt(brC.readLine());
@@ -103,6 +104,7 @@ public class Controller extends JFrame {
 			JLabel label = new JLabel(); label.setText(c.list.get(j).id);
 			g.gridx = 0; g.gridy = 3+j; g.gridwidth = 2;
 			f1.add(label,g);
+			String reviewWriter = c.list.get(j).id;
 			
 			JLabel label1 = new JLabel(); label1.setText(c.list.get(j).text);
 			g.gridx = 2; g.gridy = 3+j; g.gridwidth = 3;
@@ -116,11 +118,10 @@ public class Controller extends JFrame {
 			    public void actionPerformed(ActionEvent e) {
 					try {
 						chat.MultiChatServer.main(null);
-						chat.MultiChatClient.main(null);
+						chat.MultiChatClient.main(reviewWriter);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-				//	(e.getActionCommand());
 				}
 			};
 			b.addActionListener(listen);
