@@ -97,6 +97,11 @@ public static void print() {
 			g1.gridx = i; g1.gridy = 1;
 			f.add(b1[i],g1);
 		}
+		for(int i=clubs.size();i<5;i++) {
+			JButton notb = new JButton(" ");
+			g1.gridx = i; g1.gridy = 1;
+			f.add(notb,g1);
+		}
 		// 동아리 등록 
 		ActionListener AddClub = new ActionListener() {
 			@Override
@@ -104,9 +109,8 @@ public static void print() {
 				// 등록 칸으로 가기
 			}
 		};
-		
 		JButton plus = new JButton("동아리 등록"); plus.addActionListener(AddClub);
-		g1.gridx = clubs.size(); g1.gridy = 1;
+		g1.gridx = 5; g1.gridy = 1;
 		f.add(plus,g1);
 
 		for(int i=clubs.size()+1;i<12;i++) {
