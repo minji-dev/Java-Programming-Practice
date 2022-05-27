@@ -1,10 +1,10 @@
 package controller;
 
-import java.util.ArrayList;
 import Model.*;
 
 public class add {
 	public static user nowUser = new user();
+	public static user selectUser;
 	
 	public static boolean login(String id, String p) {
 		nowUser.reset(id, p);

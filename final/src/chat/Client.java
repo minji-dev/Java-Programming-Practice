@@ -22,6 +22,7 @@ class WriteThread {
 		this.cf = cf;
 		this.socket= cf.socket;
 		this.me = add.nowUser;
+		this.other = add.selectUser;
 		
 //		for(int i=0; i<Controller.users.size(); i++) {
 //			if(otherId.equals(Controller.users.get(i).id)) {
@@ -87,7 +88,7 @@ class ReadThread extends Thread{
 		} catch(IOException ie){
 			System.out.println(ie.getMessage());
 		} finally{
-			try{
+			try {
 				if(br!=null) br.close();
 				if(socket!=null) socket.close();
 			} catch(IOException ie){}

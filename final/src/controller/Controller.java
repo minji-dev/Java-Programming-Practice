@@ -74,9 +74,9 @@ public class Controller extends JFrame {
 		ActionListener Chatting = new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				// chat.MulitChatClient.main() ??
-				// String userId = add.nowUser.id
-				// ??
+				try {
+					chat.Client.main(null);
+				} catch (IOException e1) { e1.printStackTrace(); }
 			}
 		};
 		JButton showChat = new JButton("쪽지함"); showChat.addActionListener(Chatting);
@@ -227,7 +227,7 @@ public class Controller extends JFrame {
 					try {
 						if(add.nowUser.id == "") { JOptionPane.showMessageDialog(null, "로그인을 해주세요"); return; }
 						chat.Server.main(null);
-						chat.Client.main(null);
+						add.selectUser = new user(reviewWriter, "");
 						chat.Client.main(null);
 					} catch (IOException e1) {
 						e1.printStackTrace();
