@@ -2,9 +2,15 @@ package Model;
 
 public class user {
 	
-	public String id = "";
-	public String pw = "";
-	public String club = ".";
+	public String id;
+	public String pw;
+	public String club;
+	
+	public user() {
+		this.id = "";
+		this.pw = "";
+		this.club = ".";
+	}
 	
 	public user(String i, String p) {
 		this.id = i;
@@ -21,4 +27,8 @@ public class user {
 		this.club = c;
 	}
 	
+	public void reset(String i, String p) {
+		this.id = i;
+		this.pw = p;
+	}
 }

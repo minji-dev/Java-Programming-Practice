@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import Model.*;
 
 public class add {
-	public static user nowUser;
+	public static user nowUser = new user();
 	
 	public static boolean login(String id, String p) {
-		nowUser = new user(id, p);
+		nowUser.reset(id, p);
 		for(int i=0; i<Controller.users.size(); i++) {
 			if(Controller.users.get(i).id.equals(id)){
 				if(!Controller.users.get(i).pw.equals(p)) return false;
@@ -18,9 +18,7 @@ public class add {
 		return true;
 	}
 	
-	public static void addClub() {
-		String n = tfClubName.getText();
-		String i = tfClubIntro.getText();
+	public static void addClub(String n,String i) {
 		club c = new club(n, i, 0);
 		Controller.clubs.add(c);
 	}

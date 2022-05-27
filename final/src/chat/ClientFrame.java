@@ -58,10 +58,10 @@ public class ClientFrame extends JFrame implements ActionListener{ // 채팅창
 	Socket socket;
 	WriteThread wt;
 		
-	public ClientFrame(Socket socket, String otherId) {
+	public ClientFrame(Socket socket) {
 		super("Chat");
 		this.socket = socket;
-		wt = new WriteThread(this, otherId);
+		wt = new WriteThread(this);
 		
 		add("Center", txtA);
 		

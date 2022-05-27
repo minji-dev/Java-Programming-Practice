@@ -74,7 +74,7 @@ public class Server {
 				System.out.println("wait..");
 				socket = server.accept();
 				vec.add(socket);
-				System.out.println("ok");
+				System.out.println("socket add ok");
 				new EchoThread(socket, vec).start();
 			}
 		} catch(IOException ie){
