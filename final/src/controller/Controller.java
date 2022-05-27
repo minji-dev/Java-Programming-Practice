@@ -24,7 +24,8 @@ public class Controller extends JFrame {
 	public static void init() throws IOException {
 		BufferedReader brC = new BufferedReader(new FileReader("./club.txt"));
 		BufferedReader brU = new BufferedReader(new FileReader("./user.txt"));
-
+		add.nowUser = new user("", "");
+		
 		try {
 			int clubCnt = Integer.parseInt(brC.readLine());
 			for(int i=0; i<clubCnt; i++) {
@@ -62,9 +63,10 @@ public static void print() {
 		ActionListener listenLog = new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				// call Login
-				// String getId = input_id.getText();
-				// String getPw = input_pw.getText();
+				String getId = input_id.getText();
+				String getPw = input_pw.getText();
+				boolean loginOK = add.login(getId, getPw);
+				// if(loginOK == false) 팝업창으로 PW 틀렸다고 알려주기	
 			}
 		};	
 		JButton l12 = new JButton("login"); l12.addActionListener(listenLog);
@@ -144,6 +146,7 @@ public static void print() {
 			g.gridx = 0; g.gridy = 3+j; g.gridwidth = 2;
 			f1.add(label,g);
 
+			String reviewWriter = c.list.get(j).id;
 			JLabel label1 = new JLabel(); label1.setText(c.list.get(j).text);
 			g.gridx = 2; g.gridy = 3+j; g.gridwidth = 3;
 			f1.add(label1,g);
@@ -156,11 +159,10 @@ public static void print() {
 			    public void actionPerformed(ActionEvent e) {
 					try {
 						chat.MultiChatServer.main(null);
-						chat.MultiChatClient.main(null);
+						chat.MultiChatClient.main(reviewWriter);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-				//	(e.getActionCommand());
 				}
 			};
 			b.addActionListener(listen);
@@ -190,5 +192,6 @@ public static void print() {
 	public static void main(String[] args) throws IOException {
 		init();
 		print();
+		save();
 	}
 }

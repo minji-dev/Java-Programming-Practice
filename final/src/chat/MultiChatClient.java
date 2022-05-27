@@ -1,7 +1,7 @@
 package chat;
 
 import Model.*;
-import controller.Controller;
+import controller.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,19 +18,17 @@ class WriteThread {
 	user me;
 	user other;
 	
-	public WriteThread(ClientFrame cf) {
+	public WriteThread(ClientFrame cf, String otherId) {
 		this.cf = cf;
 		this.socket= cf.socket;
 		
-		this.me = Controller.users.get(0);
-		
 		for(int i=0; i<Controller.users.size(); i++) {
-			if(selectId.getId().equals(Controller.users.get(i).id)) {
+			if(otherId.equals(Controller.users.get(i).id)) {
 				this.other = Controller.users.get(i);
 			}
-//			else if(본인Id().equals(Controller.users[i].id)) {
-//				this.me = Controller.users[i];
-//			}
+			else if(add.nowUser.id.equals(Controller.users.get(i).id)) {
+				this.me = add.nowUser;
+			}
 		}
 	}
 	
@@ -100,15 +98,14 @@ class ReadThread extends Thread{
 
 public class MultiChatClient {
 	
-	public static void main(String[] args) throws IOException {
-		//Controller.init();
-		
+	public static void main(String id) throws IOException {
 		Socket socket = null;
 		ClientFrame cf;
+		
 		try {
 			socket = new Socket("127.0.0.1",3000);
 			System.out.println("Connect success!");
-			cf = new ClientFrame(socket);
+			cf = new ClientFrame(socket, id);
 			new ReadThread(socket, cf).start();
 		} catch(IOException ie){
 			System.out.println(ie.getMessage());
