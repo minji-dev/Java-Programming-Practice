@@ -55,7 +55,7 @@ public class Controller extends JFrame {
 		GridBagConstraints g_11 = new GridBagConstraints(); g_11.fill = GridBagConstraints.BOTH;
 		
 		GridBagConstraints gl = new GridBagConstraints(); gl.fill = GridBagConstraints.BOTH;
-		JLabel l11 = new JLabel(); l11.setText("SKKU CLUB"); 
+		JLabel l11 = new JLabel("SKKU CLUB"); l11.setFont(l11.getFont().deriveFont(20.0f));//l11.setText(); 
 		JTextField input_id = new JTextField(8);
 		JTextField input_pw = new JTextField(8);
 		
@@ -73,19 +73,32 @@ public class Controller extends JFrame {
 				}
 			}
 		};	
+		ActionListener Chatting = new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+				// chat.MulitChatClient.main() ??
+				// String userId = add.nowUser.id
+				// ??
+			}
+		};
+		JButton showChat = new JButton("쪽지함"); showChat.addActionListener(Chatting);
 		JButton l12 = new JButton("login"); l12.addActionListener(listenLog);
 		
-		g_11.gridx = 0; g_11.gridy = 0;
+		g_11.gridx = 0; g_11.gridy = 0; g_11.ipady = 2;
 		f.add(l11,g_11); 
 		
-		g_11.gridx = 3; g_11.gridy = 0;
+		g_11.gridx = 3; g_11.gridy = 1;
 		f.add(input_id,g_11);
 		
-		g_11.gridx = 4; g_11.gridy = 0;
+		g_11.gridx = 4; g_11.gridy = 1;
 		f.add(input_pw,g_11);
 		
-		g_11.gridx = 5; g_11.gridy = 0;
+		g_11.gridx = 5; g_11.gridy = 1;
 		f.add(l12,g_11);
+		
+		g_11.gridx = 5; g_11.gridy = 0;
+		f.add(showChat,g_11);
+		
 		
 		ActionListener listen = new ActionListener() {
 			@Override
@@ -99,17 +112,18 @@ public class Controller extends JFrame {
 		};
 
 		JButton[] b1 = new JButton[clubs.size()];
-		GridBagConstraints g1 = new GridBagConstraints(); g1.fill = GridBagConstraints.BOTH;
+		GridBagConstraints g1 = new GridBagConstraints(); 
+		g1.fill = GridBagConstraints.BOTH; //g.gridheight = 2;
 
 		for(int i=0;i<clubs.size();i++) {
 			b1[i] = new JButton(clubs.get(i).name);
 			b1[i].addActionListener(listen);
-			g1.gridx = i%6; g1.gridy = (int)(i/6)+1;
+			g1.gridx = i%6; g1.gridy = (int)(i/6)+3;
 			f.add(b1[i],g1);
 		}
 		for(int i=clubs.size();i<6;i++) {
 			JButton notb = new JButton(" ");
-			g1.gridx = i%6; g1.gridy = (int)(i/6);
+			g1.gridx = i%6; g1.gridy = (int)(i/6)+3;
 			f.add(notb,g1);
 		}
 		// 동아리 등록 
@@ -140,25 +154,25 @@ public class Controller extends JFrame {
 					}
 				});
 
-				g.gridx = 0; g.gridy = 0; addj.add(addname,g);
-				g.gridx = 1; g.gridy = 1; addj.add(newname,g);
-				g.gridx = 0; g.gridy = 2; addj.add(addintro,g);
-				g.gridx = 1; g.gridy = 3; addj.add(newintro,g);
-				g.gridx = 1; g.gridy = 4; addj.add(saveClub);
+				g.gridx = 0; g.gridy = 2; addj.add(addname,g);
+				g.gridx = 1; g.gridy = 3; addj.add(newname,g);
+				g.gridx = 0; g.gridy = 4; addj.add(addintro,g);
+				g.gridx = 1; g.gridy = 5; addj.add(newintro,g);
+				g.gridx = 1; g.gridy = 6; addj.add(saveClub);
 				addj.setSize(500,300); addj.setVisible(true);
 			}
 		};
 
 		for(int i=clubs.size();i<11;i++) {
 			JButton nonb = new JButton(" ");
-			g1.gridx = i%6; g1.gridy = (int)(i/6)+1;
+			g1.gridx = i%6; g1.gridy = (int)(i/6)+3;
 			f.add(nonb,g1);
 		}
 		JButton plus = new JButton("동아리 등록"); plus.addActionListener(AddClub);	
-		g1.gridx = 5; g1.gridy = 2;
+		g1.gridx = 5; g1.gridy = 4;
+	
 		f.add(plus,g1);
-		
-		f.setSize(1000,1000);
+		f.setSize(600,600);
 		f.setVisible(true);
 	}
 
@@ -223,7 +237,7 @@ public class Controller extends JFrame {
 			};
 			b.addActionListener(listen);
 		}
-		f1.setSize(1000,300);
+		f1.setSize(600,300);
 		f1.setVisible(true);
 	}
 
