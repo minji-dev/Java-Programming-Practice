@@ -19,8 +19,7 @@ public class Controller extends JFrame {
 	public static ArrayList<club> clubs = new ArrayList<club>();
 	public static ArrayList<user> users = new ArrayList<user>();
 	public static JFrame f = new JFrame("CLUB");
-	public static JLabel[] ClubDetail;
- 
+
 	public static void init() throws IOException {
 		BufferedReader brC = new BufferedReader(new FileReader("./club.txt"));
 		BufferedReader brU = new BufferedReader(new FileReader("./user.txt"));
@@ -215,28 +214,24 @@ public class Controller extends JFrame {
 			bwC.flush(); bwU.flush(); bwC.close(); bwU.close(); 
 		} catch (IOException e) { e.printStackTrace(); }
 	}
-	
+
 	public static void addClubReivew(String clubName) throws IOException{
 		int i=0;
-		if(add.nowUser.id == "") 
-		for(i=0;i<clubs.size() && clubs.get(i).name != clubName;i++) { JOptionPane.showMessageDialog(null, "로그인을 해주세요"); return;}
+		if(add.nowUser.id == ""){ JOptionPane.showMessageDialog(null, "로그인을 해주세요"); return;}
+		for(i=0;i<clubs.size() && clubs.get(i).name != clubName;i++) {}
 		club c = clubs.get(i);
 		JFrame newReview = new JFrame();
-		JTextField reviewText = new JTextField(300);
+		JTextField reviewText = new JTextField(10);
 		JLabel r = new JLabel(); r.setText(clubName+"의 후기를 작성해주세요");
 		JButton savebu = new JButton("등록"); 
 		savebu.addActionListener(new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				try {
-					save();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				c.reviewCnt++; //후기 개수 바꾸기
+				String input_text = reviewText.getText();
+				c.list.add(new review(input_text, add.nowUser.id));
 			}
 		});
-		c.reviewCnt++; //후기 개수 바꾸기
-		c.list.add(new review(reviewText.getText(), add.nowUser.id));
 		newReview.setLayout(new GridLayout(3,1));
 		newReview.add(r); newReview.add(reviewText); newReview.add(savebu);
 		newReview.setSize(500,300);

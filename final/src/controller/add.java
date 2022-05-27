@@ -9,9 +9,9 @@ public class add {
 	public static boolean login(String id, String p) {
 		nowUser = new user(id, p);
 		for(int i=0; i<Controller.users.size(); i++) {
-			if(Controller.users.get(i).id.equals(id)
-					&& !Controller.users.get(i).pw.equals(p)) {
-				return false;
+			if(Controller.users.get(i).id.equals(id)){
+				if(!Controller.users.get(i).pw.equals(p)) return false;
+				else return true;
 			}
 		}
 		Controller.users.add(nowUser);
@@ -46,5 +46,4 @@ public class add {
 		}
 		return true;
 	}
-
 }
