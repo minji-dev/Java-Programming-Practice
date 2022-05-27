@@ -230,6 +230,7 @@ public class Controller extends JFrame {
 				c.reviewCnt++; //후기 개수 바꾸기
 				String input_text = reviewText.getText();
 				c.list.add(new review(input_text, add.nowUser.id));
+				newReview.setVisible(false);
 			}
 		});
 		newReview.setLayout(new GridLayout(3,1));
