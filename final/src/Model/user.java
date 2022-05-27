@@ -4,7 +4,7 @@ public class user {
 	
 	public String id = "";
 	public String pw = "";
-	public String club = "";
+	public String club = ".";
 	
 	public user(String i, String p) {
 		this.id = i;
