@@ -116,7 +116,11 @@ public class Controller extends JFrame {
 		ActionListener AddClub = new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				// 등록 칸으로 가기
+				try {
+					showDetail(e.getActionCommand());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		};
 		JButton plus = new JButton("동아리 등록"); plus.addActionListener(AddClub);	
@@ -230,7 +234,7 @@ public class Controller extends JFrame {
 				c.reviewCnt++; //후기 개수 바꾸기
 				String input_text = reviewText.getText();
 				c.list.add(new review(input_text, add.nowUser.id));
-				newReview.setVisible(false);
+				newReview.setVisible(false); 
 			}
 		});
 		newReview.setLayout(new GridLayout(3,1));
