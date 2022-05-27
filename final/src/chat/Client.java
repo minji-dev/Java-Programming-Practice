@@ -43,8 +43,9 @@ class WriteThread {
 				String ip = iaddr.getHostAddress();
 				
 				System.out.println("ip:"+ip+"id:"+me.id);
-				str = "["+me.id+"] login"+ip+")"; 
-			} else{
+				str = "["+me.id+"] login ("+ip+")";
+				cf.isFirst = false;
+			} else {
 				str= "["+me.id+"] "+cf.txtF.getText();
 			}
 			pw.println(str);
@@ -106,6 +107,7 @@ public class Client {
 			socket = new Socket("127.0.0.1",3000);
 			System.out.println("Connect success!");
 			cf = new ClientFrame(socket);
+//			System.out.println("들어왓지롱 우히히");
 			new ReadThread(socket, cf).start();
 		} catch(IOException ie){
 			System.out.println(ie.getMessage());

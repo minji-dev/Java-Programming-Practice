@@ -23,6 +23,7 @@ public class Controller extends JFrame {
 	public static void init() throws IOException {
 		BufferedReader brC = new BufferedReader(new FileReader("./club.txt"));
 		BufferedReader brU = new BufferedReader(new FileReader("./user.txt"));
+		chat.Server.main(null);
 		
 		try {
 			int clubCnt = Integer.parseInt(brC.readLine());
@@ -226,7 +227,6 @@ public class Controller extends JFrame {
 			    public void actionPerformed(ActionEvent e) {
 					try {
 						if(add.nowUser.id == "") { JOptionPane.showMessageDialog(null, "로그인을 해주세요"); return; }
-						chat.Server.main(null);
 						add.selectUser = new user(reviewWriter, "");
 						chat.Client.main(null);
 					} catch (IOException e1) {
