@@ -21,13 +21,12 @@ class WriteThread {
 	public WriteThread(ClientFrame cf, String otherId) {
 		this.cf = cf;
 		this.socket= cf.socket;
+		this.me = add.nowUser;
 		
 		for(int i=0; i<Controller.users.size(); i++) {
 			if(otherId.equals(Controller.users.get(i).id)) {
 				this.other = Controller.users.get(i);
-			}
-			else if(add.nowUser.id.equals(Controller.users.get(i).id)) {
-				this.me = add.nowUser;
+				break;
 			}
 		}
 	}
@@ -96,7 +95,7 @@ class ReadThread extends Thread{
 	}
 }
 
-public class MultiChatClient {
+public class Client {
 	
 	public static void main(String id) throws IOException {
 		Socket socket = null;

@@ -23,7 +23,6 @@ public class Controller extends JFrame {
 	public static void init() throws IOException {
 		BufferedReader brC = new BufferedReader(new FileReader("./club.txt"));
 		BufferedReader brU = new BufferedReader(new FileReader("./user.txt"));
-		add.nowUser = new user("", "");
 		
 		try {
 			int clubCnt = Integer.parseInt(brC.readLine());
@@ -67,8 +66,7 @@ public class Controller extends JFrame {
 				boolean loginOK = add.login(getId, getPw);
 				if(loginOK == false) { //팝업창으로 PW 틀렸다고 알려주기
 					JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
-				}
-				else {
+				} else {
 					JOptionPane.showMessageDialog(null, "로그인 성공!");
 				}
 			}
@@ -184,7 +182,7 @@ public class Controller extends JFrame {
 				@Override
 			    public void actionPerformed(ActionEvent e) {
 					try {
-						chat.Server.main(null);
+						chat.Server.main();
 						chat.Client.main(reviewWriter);
 					} catch (IOException e1) {
 						e1.printStackTrace();

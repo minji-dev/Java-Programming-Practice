@@ -62,18 +62,19 @@ class EchoThread extends Thread{
 }
 
 
-public class MultiChatServer {
-	
+public class Server {
+		
 	public static void main(String[] args) {
 		ServerSocket server = null;
 		Socket socket = null;
 		Vector<Socket> vec = new Vector<Socket>();
 		try {
-			server= new ServerSocket(3000);
+			server = new ServerSocket(3000);
 			while(true){
 				System.out.println("wait..");
 				socket = server.accept();
 				vec.add(socket);
+				System.out.println("ok");
 				new EchoThread(socket, vec).start();
 			}
 		} catch(IOException ie){
