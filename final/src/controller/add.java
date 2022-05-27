@@ -18,9 +18,7 @@ public class add {
 		return true;
 	}
 	
-	public static void addClub() {
-		String n = tfClubName.getText();
-		String i = tfClubIntro.getText();
+	public static void addClub(String n,String i) {
 		club c = new club(n, i, 0);
 		Controller.clubs.add(c);
 	}
