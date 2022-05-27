@@ -23,7 +23,7 @@ public class Controller extends JFrame {
 	public static void init() throws IOException {
 		BufferedReader brC = new BufferedReader(new FileReader("./club.txt"));
 		BufferedReader brU = new BufferedReader(new FileReader("./user.txt"));
-		add.nowUser = new user("", "");
+		chat.Server.main(null);
 		
 		try {
 			int clubCnt = Integer.parseInt(brC.readLine());
@@ -55,7 +55,7 @@ public class Controller extends JFrame {
 		GridBagConstraints g_11 = new GridBagConstraints(); g_11.fill = GridBagConstraints.BOTH;
 		
 		GridBagConstraints gl = new GridBagConstraints(); gl.fill = GridBagConstraints.BOTH;
-		JLabel l11 = new JLabel(); l11.setText("SKKU CLUB"); 
+		JLabel l11 = new JLabel("SKKU CLUB"); l11.setFont(l11.getFont().deriveFont(20.0f));//l11.setText(); 
 		JTextField input_id = new JTextField(8);
 		JTextField input_pw = new JTextField(8);
 		
@@ -67,25 +67,37 @@ public class Controller extends JFrame {
 				boolean loginOK = add.login(getId, getPw);
 				if(loginOK == false) { //팝업창으로 PW 틀렸다고 알려주기
 					JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
-				}
-				else {
+				} else {
 					JOptionPane.showMessageDialog(null, "로그인 성공!");
 				}
 			}
 		};	
+		ActionListener Chatting = new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+				try {
+					chat.Client.main(null);
+				} catch (IOException e1) { e1.printStackTrace(); }
+			}
+		};
+		JButton showChat = new JButton("쪽지함"); showChat.addActionListener(Chatting);
 		JButton l12 = new JButton("login"); l12.addActionListener(listenLog);
 		
-		g_11.gridx = 0; g_11.gridy = 0;
+		g_11.gridx = 0; g_11.gridy = 0; g_11.ipady = 2;
 		f.add(l11,g_11); 
 		
-		g_11.gridx = 3; g_11.gridy = 0;
+		g_11.gridx = 3; g_11.gridy = 1;
 		f.add(input_id,g_11);
 		
-		g_11.gridx = 4; g_11.gridy = 0;
+		g_11.gridx = 4; g_11.gridy = 1;
 		f.add(input_pw,g_11);
 		
-		g_11.gridx = 5; g_11.gridy = 0;
+		g_11.gridx = 5; g_11.gridy = 1;
 		f.add(l12,g_11);
+		
+		g_11.gridx = 5; g_11.gridy = 0;
+		f.add(showChat,g_11);
+		
 		
 		ActionListener listen = new ActionListener() {
 			@Override
@@ -99,37 +111,67 @@ public class Controller extends JFrame {
 		};
 
 		JButton[] b1 = new JButton[clubs.size()];
-		GridBagConstraints g1 = new GridBagConstraints(); g1.fill = GridBagConstraints.BOTH;
+		GridBagConstraints g1 = new GridBagConstraints(); 
+		g1.fill = GridBagConstraints.BOTH; //g.gridheight = 2;
 
 		for(int i=0;i<clubs.size();i++) {
 			b1[i] = new JButton(clubs.get(i).name);
 			b1[i].addActionListener(listen);
-			g1.gridx = i; g1.gridy = 1;
+			g1.gridx = i%6; g1.gridy = (int)(i/6)+3;
 			f.add(b1[i],g1);
 		}
-		for(int i=clubs.size();i<5;i++) {
+		for(int i=clubs.size();i<6;i++) {
 			JButton notb = new JButton(" ");
-			g1.gridx = i; g1.gridy = 1;
+			g1.gridx = i%6; g1.gridy = (int)(i/6)+3;
 			f.add(notb,g1);
 		}
 		// 동아리 등록 
 		ActionListener AddClub = new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				// 등록 칸으로 가기
+				JFrame addj = new JFrame();
+				GridBagLayout gb = new GridBagLayout();
+				addj.setLayout(gb);
+				GridBagConstraints g = new GridBagConstraints(); g.fill = GridBagConstraints.BOTH;
+				JButton addname = new JButton(); addname.setText("동아리 이름: ");
+				JButton addintro = new JButton(); addintro.setText("소개: ");
+				JTextField newname = new JTextField(10);
+				JTextField newintro = new JTextField(100);
+				JButton saveClub = new JButton("save");
+				saveClub.addActionListener(new ActionListener() {
+					@Override
+				    public void actionPerformed(ActionEvent e) {
+						try {
+							String clubn = newname.getText();
+							String clubin = newintro.getText();
+							add.addClub(clubn, clubin);
+							save();
+							addj.setVisible(false);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					}
+				});
+
+				g.gridx = 0; g.gridy = 2; addj.add(addname,g);
+				g.gridx = 1; g.gridy = 3; addj.add(newname,g);
+				g.gridx = 0; g.gridy = 4; addj.add(addintro,g);
+				g.gridx = 1; g.gridy = 5; addj.add(newintro,g);
+				g.gridx = 1; g.gridy = 6; addj.add(saveClub);
+				addj.setSize(500,300); addj.setVisible(true);
 			}
 		};
-		JButton plus = new JButton("동아리 등록"); plus.addActionListener(AddClub);	
-		g1.gridx = 5; g1.gridy = 1;
-		f.add(plus,g1);
 
-		for(int i=clubs.size()+1;i<12;i++) {
+		for(int i=clubs.size();i<11;i++) {
 			JButton nonb = new JButton(" ");
-			g1.gridx = i%6; g1.gridy = (int)(i/6)+1;
+			g1.gridx = i%6; g1.gridy = (int)(i/6)+3;
 			f.add(nonb,g1);
 		}
-
-		f.setSize(1000,1000);
+		JButton plus = new JButton("동아리 등록"); plus.addActionListener(AddClub);	
+		g1.gridx = 5; g1.gridy = 4;
+	
+		f.add(plus,g1);
+		f.setSize(600,600);
 		f.setVisible(true);
 	}
 
@@ -143,38 +185,38 @@ public class Controller extends JFrame {
 		for(i=0;i<clubs.size() && clubs.get(i).name != name;i++) { }
 		club c = clubs.get(i);
 
-		//GridBagLayout gbin = new GridBagLayout();
 		JButton cName = new JButton(name);
 		JButton intro = new JButton(c.intro);
 		JButton addRe = new JButton("후기등록"); 
 
-		ActionListener addReivew = new ActionListener() {
+		ActionListener addReview = new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				try {
-					addClubReivew(name);
+					addClubReview(name);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
 		};
-		addRe.addActionListener(addReivew);
+
+		addRe.addActionListener(addReview);
 		GridBagConstraints g = new GridBagConstraints(); g.fill = GridBagConstraints.BOTH;
-		g.gridx = 0; g.gridy = 2; g.gridwidth = 2;
+		g.gridx = 0; g.gridy = 2;
 		f1.add(cName,g);
-		g.gridx = 3; g.gridy = 2; g.gridwidth = 4;
+		g.gridx = 3; g.gridy = 2;
 		f1.add(intro,g);
 		g.gridx = 7; g.gridy = 2;
 		f1.add(addRe,g);
 		
 		for(int j=0;j<c.list.size();j++) {
 			JLabel label = new JLabel(); label.setText(c.list.get(j).id);
-			g.gridx = 0; g.gridy = 3+j; g.gridwidth = 2;
+			g.gridx = 0; g.gridy = 3+j;
 			f1.add(label,g);
 
 			String reviewWriter = c.list.get(j).id;
 			JLabel label1 = new JLabel(); label1.setText(c.list.get(j).text);
-			g.gridx = 3; g.gridy = 3+j; g.gridwidth = 4;
+			g.gridx = 3; g.gridy = 3+j;
 			f1.add(label1,g);
 
 			JButton b = new JButton("쪽지");
@@ -184,8 +226,9 @@ public class Controller extends JFrame {
 				@Override
 			    public void actionPerformed(ActionEvent e) {
 					try {
-						chat.MultiChatServer.main(null);
-						chat.MultiChatClient.main(reviewWriter);
+						if(add.nowUser.id == "") { JOptionPane.showMessageDialog(null, "로그인을 해주세요"); return; }
+						add.selectUser = new user(reviewWriter, "");
+						chat.Client.main(null);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -193,10 +236,37 @@ public class Controller extends JFrame {
 			};
 			b.addActionListener(listen);
 		}
-		f1.setSize(1000,300);
+		f1.setSize(600,300);
 		f1.setVisible(true);
 	}
 
+	public static void addClubReview(String clubName) throws IOException{
+		int i=0;
+		if(add.nowUser.id == ""){ JOptionPane.showMessageDialog(null, "로그인을 해주세요"); return; }
+		for(i=0;i<clubs.size() && clubs.get(i).name != clubName;i++) {}
+		club c = clubs.get(i);
+		JFrame newReview = new JFrame();
+		JTextField reviewText = new JTextField(10);
+		JLabel r = new JLabel(); r.setText(clubName+"의 후기를 작성해주세요");
+		JButton savebu = new JButton("등록");
+		savebu.addActionListener(new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+				c.reviewCnt++; //후기 개수 바꾸기
+				String input_text = reviewText.getText();
+				c.list.add(new review(input_text, add.nowUser.id));
+				try {
+					save();
+				} catch (IOException e1) { e1.printStackTrace(); }
+				newReview.setVisible(false);
+			}
+		});
+		newReview.setLayout(new GridLayout(3,1));
+		newReview.add(r); newReview.add(reviewText); newReview.add(savebu);
+		newReview.setSize(500,300);
+		newReview.setVisible(true);
+	}
+	
 	public static void save() throws IOException {
 		BufferedWriter bwC = new BufferedWriter(new FileWriter("./club.txt"));
 		BufferedWriter bwU = new BufferedWriter(new FileWriter("./user.txt"));
@@ -215,29 +285,6 @@ public class Controller extends JFrame {
 		} catch (IOException e) { e.printStackTrace(); }
 	}
 
-	public static void addClubReivew(String clubName) throws IOException{
-		int i=0;
-		if(add.nowUser.id == ""){ JOptionPane.showMessageDialog(null, "로그인을 해주세요"); return;}
-		for(i=0;i<clubs.size() && clubs.get(i).name != clubName;i++) {}
-		club c = clubs.get(i);
-		JFrame newReview = new JFrame();
-		JTextField reviewText = new JTextField(10);
-		JLabel r = new JLabel(); r.setText(clubName+"의 후기를 작성해주세요");
-		JButton savebu = new JButton("등록"); 
-		savebu.addActionListener(new ActionListener() {
-			@Override
-		    public void actionPerformed(ActionEvent e) {
-				c.reviewCnt++; //후기 개수 바꾸기
-				String input_text = reviewText.getText();
-				c.list.add(new review(input_text, add.nowUser.id));
-				newReview.setVisible(false);
-			}
-		});
-		newReview.setLayout(new GridLayout(3,1));
-		newReview.add(r); newReview.add(reviewText); newReview.add(savebu);
-		newReview.setSize(500,300);
-		newReview.setVisible(true);
-	}
 	public static void main(String[] args) throws IOException {
 		init();
 		print();
