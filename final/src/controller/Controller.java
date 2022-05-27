@@ -184,8 +184,8 @@ public class Controller extends JFrame {
 				@Override
 			    public void actionPerformed(ActionEvent e) {
 					try {
-						chat.MultiChatServer.main(null);
-						chat.MultiChatClient.main(reviewWriter);
+						chat.Server.main(null);
+						chat.Client.main(reviewWriter);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -197,6 +197,31 @@ public class Controller extends JFrame {
 		f1.setVisible(true);
 	}
 
+	public static void addClubReivew(String clubName) throws IOException{
+		int i=0;
+		if(add.nowUser.id == ""){ JOptionPane.showMessageDialog(null, "로그인을 해주세요"); return;}
+		for(i=0;i<clubs.size() && clubs.get(i).name != clubName;i++) {}
+		club c = clubs.get(i);
+		JFrame newReview = new JFrame();
+		JTextField reviewText = new JTextField(10);
+		JLabel r = new JLabel(); r.setText(clubName+"의 후기를 작성해주세요");
+		JButton savebu = new JButton("등록"); 
+		savebu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+//				c.reviewCnt++; //후기 개수 바꾸기
+				String input_text = reviewText.getText();
+				c.list.add(new review(input_text, add.nowUser.id));
+				add.resetClub(clubName);
+				newReview.setVisible(false);
+			}
+		});
+		newReview.setLayout(new GridLayout(3,1));
+		newReview.add(r); newReview.add(reviewText); newReview.add(savebu);
+		newReview.setSize(500,300);
+		newReview.setVisible(true);
+	}
+	
 	public static void save() throws IOException {
 		BufferedWriter bwC = new BufferedWriter(new FileWriter("./club.txt"));
 		BufferedWriter bwU = new BufferedWriter(new FileWriter("./user.txt"));
@@ -214,30 +239,7 @@ public class Controller extends JFrame {
 			bwC.flush(); bwU.flush(); bwC.close(); bwU.close(); 
 		} catch (IOException e) { e.printStackTrace(); }
 	}
-
-	public static void addClubReivew(String clubName) throws IOException{
-		int i=0;
-		if(add.nowUser.id == ""){ JOptionPane.showMessageDialog(null, "로그인을 해주세요"); return;}
-		for(i=0;i<clubs.size() && clubs.get(i).name != clubName;i++) {}
-		club c = clubs.get(i);
-		JFrame newReview = new JFrame();
-		JTextField reviewText = new JTextField(10);
-		JLabel r = new JLabel(); r.setText(clubName+"의 후기를 작성해주세요");
-		JButton savebu = new JButton("등록"); 
-		savebu.addActionListener(new ActionListener() {
-			@Override
-		    public void actionPerformed(ActionEvent e) {
-				c.reviewCnt++; //후기 개수 바꾸기
-				String input_text = reviewText.getText();
-				c.list.add(new review(input_text, add.nowUser.id));
-				newReview.setVisible(false);
-			}
-		});
-		newReview.setLayout(new GridLayout(3,1));
-		newReview.add(r); newReview.add(reviewText); newReview.add(savebu);
-		newReview.setSize(500,300);
-		newReview.setVisible(true);
-	}
+	
 	public static void main(String[] args) throws IOException {
 		init();
 		print();
