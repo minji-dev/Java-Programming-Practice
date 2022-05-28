@@ -82,10 +82,10 @@ public class Controller extends JFrame {
 		JButton showChat = new JButton("쪽지함"); showChat.addActionListener(Chatting);
 		JButton l12 = new JButton("login"); l12.addActionListener(listenLog);
 		
-		g_11.gridx = 0; g_11.gridy = 0; g_11.ipady = 2;
+		g_11.gridx = 0; g_11.gridy = 0; g_11.ipady = 2; g_11.insets = new Insets(0,0,4,0);
 		f.add(l11,g_11); 
 		
-		g_11.gridx = 3; g_11.gridy = 1;
+		g_11.gridx = 3; g_11.gridy = 1; g_11.insets = new Insets(0,0,4,0);
 		f.add(input_id,g_11);
 		
 		g_11.gridx = 4; g_11.gridy = 1;
@@ -94,9 +94,10 @@ public class Controller extends JFrame {
 		g_11.gridx = 5; g_11.gridy = 1;
 		f.add(l12,g_11);
 		
-		g_11.gridx = 5; g_11.gridy = 0;
+		g_11.gridx = 3; g_11.gridy = 0; g_11.gridwidth = 3; g_11.insets = new Insets(0,0,0,0);
 		f.add(showChat,g_11);
 		
+//		g_11.insets = new Insets(0,0,0,0);
 		
 		ActionListener listen = new ActionListener() {
 			@Override
@@ -209,7 +210,7 @@ public class Controller extends JFrame {
 		f1.add(addRe,g);
 		
 		for(int j=0;j<c.list.size();j++) {
-			JLabel label = new JLabel(); label.setText(c.list.get(j).id);
+			JLabel label = new JLabel("",SwingConstants.CENTER); label.setText(c.list.get(j).id);
 			g.gridx = 0; g.gridy = 3+j;
 			f1.add(label,g);
 
