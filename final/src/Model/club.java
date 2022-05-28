@@ -22,4 +22,4 @@ public class club {
 		this.list = l;
 	}
 
-}	
+}
