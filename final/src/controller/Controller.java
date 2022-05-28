@@ -1,7 +1,6 @@
 package controller;
 
 import Model.*;
-import chat.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -252,7 +251,6 @@ public class Controller extends JFrame {
 		savebu.addActionListener(new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				c.reviewCnt++; //후기 개수 바꾸기
 				String input_text = reviewText.getText();
 				c.list.add(new review(input_text, add.nowUser.id));
 				try {
@@ -274,8 +272,8 @@ public class Controller extends JFrame {
 		try {
 			bwC.write(clubs.size()+"\n");
 			for(int i=0; i<clubs.size(); i++) {
-				bwC.write(clubs.get(i).name + ", " + clubs.get(i).intro + ", " + clubs.get(i).reviewCnt+"\n");
-				for(int j=0; j<clubs.get(i).reviewCnt; j++)
+				bwC.write(clubs.get(i).name + ", " + clubs.get(i).intro + ", " + clubs.get(i).list.size()+"\n");
+				for(int j=0; j<clubs.get(i).list.size(); j++)
 					bwC.write(clubs.get(i).list.get(j).text + ", " + clubs.get(i).list.get(j).id+"\n");
 			}
 			bwU.write(users.size()+"\n");
