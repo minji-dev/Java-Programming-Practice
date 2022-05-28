@@ -18,18 +18,18 @@ class WriteThread {
 	user me;
 	user other;
 	
-	public WriteThread(ClientFrame cf, String otherId) {
+	public WriteThread(ClientFrame cf) {
 		this.cf = cf;
 		this.socket= cf.socket;
+		this.me = add.nowUser;
+		this.other = add.selectUser;
 		
-		for(int i=0; i<Controller.users.size(); i++) {
-			if(otherId.equals(Controller.users.get(i).id)) {
-				this.other = Controller.users.get(i);
-			}
-			else if(add.nowUser.id.equals(Controller.users.get(i).id)) {
-				this.me = add.nowUser;
-			}
-		}
+//		for(int i=0; i<Controller.users.size(); i++) {
+//			if(otherId.equals(Controller.users.get(i).id)) {
+//				this.other = Controller.users.get(i);
+//				break;
+//			}
+//		}
 	}
 	
 	public void sendMsg() {
@@ -43,8 +43,9 @@ class WriteThread {
 				String ip = iaddr.getHostAddress();
 				
 				System.out.println("ip:"+ip+"id:"+me.id);
-				str = "["+me.id+"] login"+ip+")"; 
-			} else{
+				str = "["+me.id+"] login ("+ip+")";
+				cf.isFirst = false;
+			} else {
 				str= "["+me.id+"] "+cf.txtF.getText();
 			}
 			pw.println(str);
@@ -88,7 +89,7 @@ class ReadThread extends Thread{
 		} catch(IOException ie){
 			System.out.println(ie.getMessage());
 		} finally{
-			try{
+			try {
 				if(br!=null) br.close();
 				if(socket!=null) socket.close();
 			} catch(IOException ie){}
@@ -96,16 +97,17 @@ class ReadThread extends Thread{
 	}
 }
 
-public class MultiChatClient {
+public class Client {
 	
-	public static void main(String id) throws IOException {
+	public static void main(String[] args) throws IOException {
 		Socket socket = null;
 		ClientFrame cf;
 		
 		try {
 			socket = new Socket("127.0.0.1",3000);
 			System.out.println("Connect success!");
-			cf = new ClientFrame(socket, id);
+			cf = new ClientFrame(socket);
+//			System.out.println("들어왓지롱 우히히");
 			new ReadThread(socket, cf).start();
 		} catch(IOException ie){
 			System.out.println(ie.getMessage());

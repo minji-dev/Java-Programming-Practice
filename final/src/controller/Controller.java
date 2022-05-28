@@ -1,7 +1,6 @@
 package controller;
 
 import Model.*;
-import chat.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -23,7 +22,7 @@ public class Controller extends JFrame {
 	public static void init() throws IOException {
 		BufferedReader brC = new BufferedReader(new FileReader("./club.txt"));
 		BufferedReader brU = new BufferedReader(new FileReader("./user.txt"));
-		add.nowUser = new user("", "");
+		chat.Server.main(null);
 		
 		try {
 			int clubCnt = Integer.parseInt(brC.readLine());
@@ -67,8 +66,7 @@ public class Controller extends JFrame {
 				boolean loginOK = add.login(getId, getPw);
 				if(loginOK == false) { //팝업창으로 PW 틀렸다고 알려주기
 					JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
-				}
-				else {
+				} else {
 					JOptionPane.showMessageDialog(null, "로그인 성공!");
 				}
 			}
@@ -76,9 +74,9 @@ public class Controller extends JFrame {
 		ActionListener Chatting = new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				// chat.MulitChatClient.main() ??
-				// String userId = add.nowUser.id
-				// ??
+				try {
+					chat.Client.main(null);
+				} catch (IOException e1) { e1.printStackTrace(); }
 			}
 		};
 		JButton showChat = new JButton("쪽지함"); showChat.addActionListener(Chatting);
@@ -229,8 +227,8 @@ public class Controller extends JFrame {
 			    public void actionPerformed(ActionEvent e) {
 					try {
 						if(add.nowUser.id == "") { JOptionPane.showMessageDialog(null, "로그인을 해주세요"); return; }
-						chat.MultiChatServer.main(null);
-						chat.MultiChatClient.main(reviewWriter);
+						add.selectUser = new user(reviewWriter, "");
+						chat.Client.main(null);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -240,24 +238,6 @@ public class Controller extends JFrame {
 		}
 		f1.setSize(600,300);
 		f1.setVisible(true);
-	}
-
-	public static void save() throws IOException {
-		BufferedWriter bwC = new BufferedWriter(new FileWriter("./club.txt"));
-		BufferedWriter bwU = new BufferedWriter(new FileWriter("./user.txt"));
-
-		try {
-			bwC.write(clubs.size()+"\n");
-			for(int i=0; i<clubs.size(); i++) {
-				bwC.write(clubs.get(i).name + ", " + clubs.get(i).intro + ", " + clubs.get(i).reviewCnt+"\n");
-				for(int j=0; j<clubs.get(i).reviewCnt; j++)
-					bwC.write(clubs.get(i).list.get(j).text + ", " + clubs.get(i).list.get(j).id+"\n");
-			}
-			bwU.write(users.size()+"\n");
-			for(int i=0; i<users.size(); i++)
-				bwU.write(users.get(i).id + ", " + users.get(i).pw + ", " + users.get(i).club+"\n");
-			bwC.flush(); bwU.flush(); bwC.close(); bwU.close(); 
-		} catch (IOException e) { e.printStackTrace(); }
 	}
 
 	public static void addClubReview(String clubName) throws IOException{
@@ -272,15 +252,11 @@ public class Controller extends JFrame {
 		savebu.addActionListener(new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				c.reviewCnt++; //후기 개수 바꾸기
 				String input_text = reviewText.getText();
 				c.list.add(new review(input_text, add.nowUser.id));
 				try {
 					save();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				} catch (IOException e1) { e1.printStackTrace(); }
 				newReview.setVisible(false);
 			}
 		});
@@ -289,6 +265,25 @@ public class Controller extends JFrame {
 		newReview.setSize(500,300);
 		newReview.setVisible(true);
 	}
+	
+	public static void save() throws IOException {
+		BufferedWriter bwC = new BufferedWriter(new FileWriter("./club.txt"));
+		BufferedWriter bwU = new BufferedWriter(new FileWriter("./user.txt"));
+
+		try {
+			bwC.write(clubs.size()+"\n");
+			for(int i=0; i<clubs.size(); i++) {
+				bwC.write(clubs.get(i).name + ", " + clubs.get(i).intro + ", " + clubs.get(i).list.size()+"\n");
+				for(int j=0; j<clubs.get(i).list.size(); j++)
+					bwC.write(clubs.get(i).list.get(j).text + ", " + clubs.get(i).list.get(j).id+"\n");
+			}
+			bwU.write(users.size()+"\n");
+			for(int i=0; i<users.size(); i++)
+				bwU.write(users.get(i).id + ", " + users.get(i).pw + ", " + users.get(i).club+"\n");
+			bwC.flush(); bwU.flush(); bwC.close(); bwU.close(); 
+		} catch (IOException e) { e.printStackTrace(); }
+	}
+
 	public static void main(String[] args) throws IOException {
 		init();
 		print();
