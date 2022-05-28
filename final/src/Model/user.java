@@ -31,4 +31,5 @@ public class user {
 		this.id = i;
 		this.pw = p;
 	}
+	
 }
