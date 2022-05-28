@@ -49,8 +49,7 @@ class EchoThread extends Thread{
 		try {
 			for(Socket socket:vec) {
 				if(socket != this.socket){
-					PrintWriter pw = 
-						new PrintWriter(socket.getOutputStream(), true);
+					PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
 					pw.println(str);
 					pw.flush();
 				}
