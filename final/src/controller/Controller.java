@@ -136,8 +136,9 @@ public class Controller extends JFrame {
 				JButton addname = new JButton(); addname.setText("동아리 이름: ");
 				JButton addintro = new JButton(); addintro.setText("소개: ");
 				JTextField newname = new JTextField(10);
-				JTextField newintro = new JTextField(100);
+				JTextField newintro = new JTextField(10);
 				JButton saveClub = new JButton("save");
+
 				saveClub.addActionListener(new ActionListener() {
 					@Override
 				    public void actionPerformed(ActionEvent e) {
@@ -153,11 +154,11 @@ public class Controller extends JFrame {
 					}
 				});
 
-				g.gridx = 0; g.gridy = 2; addj.add(addname,g);
-				g.gridx = 1; g.gridy = 3; addj.add(newname,g);
-				g.gridx = 0; g.gridy = 4; addj.add(addintro,g);
-				g.gridx = 1; g.gridy = 5; addj.add(newintro,g);
-				g.gridx = 1; g.gridy = 6; addj.add(saveClub);
+				g.gridx = 0; g.gridy = 2; g.ipady = 2; addj.add(addname,g);
+				g.gridx = 1; g.gridy = 2; g.ipady = 2; addj.add(newname,g);
+				g.gridx = 0; g.gridy = 3; g.ipady = 2; addj.add(addintro,g);
+				g.gridx = 1; g.gridy = 3; g.ipady = 2; addj.add(newintro,g);
+				g.gridx = 1; g.gridy = 4; g.ipady = 3; addj.add(saveClub,g);
 				addj.setSize(500,300); addj.setVisible(true);
 			}
 		};
