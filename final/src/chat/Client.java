@@ -23,13 +23,6 @@ class WriteThread {
 		this.socket= cf.socket;
 		this.me = add.nowUser;
 		this.other = add.selectUser;
-		
-//		for(int i=0; i<Controller.users.size(); i++) {
-//			if(otherId.equals(Controller.users.get(i).id)) {
-//				this.other = Controller.users.get(i);
-//				break;
-//			}
-//		}
 	}
 	
 	public void sendMsg() {
